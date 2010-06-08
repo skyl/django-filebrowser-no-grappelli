@@ -49,7 +49,7 @@ def browse(request):
     query = request.GET.copy()
     path = get_path(query.get('dir', ''))
     directory = get_path('')
-    
+
     if path is None:
         msg = _('The requested Folder does not exist.')
         request.user.message_set.create(message=msg)
@@ -58,6 +58,7 @@ def browse(request):
             raise ImproperlyConfigured, _("Error finding Upload-Folder. Maybe it does not exist?")
         redirect_url = reverse("fb_browse") + query_helper(query, "", "dir")
         return HttpResponseRedirect(redirect_url)
+
     abs_path = os.path.join(MEDIA_ROOT, DIRECTORY, path)
     
     # INITIAL VARIABLES
@@ -453,7 +454,8 @@ def versions(request):
     # QUERY / PATH CHECK
     query = request.GET
     path = get_path(query.get('dir', ''))
-    filename = get_file(query.get('dir', ''), query.get('filename', ''))
+    filename = get_file(path, query.get('filename', ''))
+
     if path is None or filename is None:
         if path is None:
             msg = _('The requested Folder does not exist.')
