@@ -148,6 +148,7 @@ def get_path(path):
     """
     Get Path.
     """
+
     if os.path.isabs(path):
         return path[1:]
 
