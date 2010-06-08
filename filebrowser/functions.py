@@ -149,8 +149,12 @@ def get_path(path):
     Get Path.
     """
     
-    if path.startswith('.') or os.path.isabs(path) or not os.path.isdir(os.path.join(MEDIA_ROOT, DIRECTORY, path)):
-        return None
+    if os.path.isabs(path):
+        return path[1:]
+
+    if path.startswith('.') or not os.path.isdir(os.path.join(MEDIA_ROOT, DIRECTORY, path)):
+         return None
+
     return path
 
 
